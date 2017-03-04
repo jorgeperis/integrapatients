@@ -17,10 +17,6 @@ class PatientsController < ApplicationController
     end
   end
 
-  def edit
-    @patient = patient
-  end
-
   def show
     @patient = patient
   end
@@ -31,12 +27,22 @@ class PatientsController < ApplicationController
       redirect_to :root
     else
       flash[:alert] = "No se ha podido actualizar el paciente"
-      redirect_to :edit
+      redirect_to :show
     end
   end
 
   def new
     @patient = Patient.new
+  end
+
+  def destroy
+    if patient.destroy
+      flash[:notice] = "Paciente eliminado correctamente"
+      redirect_to :root
+    else
+      flash[:notice] = "No se ha podido eliminar el paciente"
+      redirect_to :show
+    end
   end
 
   private

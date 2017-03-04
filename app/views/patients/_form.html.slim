@@ -1,3 +1,4 @@
+hr
 .medium-10.small-12.columns.medium-centered style="margin-bottom: 2em;"
   = form_for @patient, html: {class: 'js-form'} do |f|
     h2.field.js-name style="text-align: center;" contenteditable='true' = @patient.name || "Nombre del paciente"
@@ -25,7 +26,12 @@
     = f.hidden_field :owner, value: @patient.owner
     = f.hidden_field :history, value: @patient.history
     br
-    = f.submit @patient.new_record? ? 'Crear' : 'Actualizar', class: 'js-submit hide button small'
+    .row
+      .medium-6.columns
+        = f.submit @patient.new_record? ? 'Crear' : 'Actualizar', class: 'js-submit hide button small'
+      .medium-6.columns.medium-text-right
+        - unless @patient.new_record?
+          = link_to 'Eliminar', @patient, method: :delete, class: 'button small alert', data: {confirm: "Estas seguro?"}
 
 - content_for :custom_js do
   javascript:

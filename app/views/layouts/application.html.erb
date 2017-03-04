@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="http://integravalencia.com/wp-content/uploads/2017/02/favicon.png">
 
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "BD Integra" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -21,6 +21,9 @@
           <div class="medium-2 columns" style="margin-bottom: 1em;">
             <a href=<%= root_path %>><img src="http://integravalencia.com/wp-content/uploads/2014/02/copy-logo-Integra.jpg" width="auto"></a>
           </div>
+          <div class="medium-4 columns medium-text-centered">
+            <h2 style="color: #8a8a8a;">BD Pacientes</h2>
+          </div>
           <div class="medium-10 columns medium-text-right" style="color: #8a8a8a;">
             <% if current_user %>
               Usuario conectado: <span class="gris"><%= current_user.name %></span> | <%= link_to "Desconectar", destroy_user_session_path, style: "color: #cc4b37;", method: :delete %>
@@ -30,7 +33,6 @@
         <%= yield %>
       </div>
     </div>
-    <%= javascript_include_tag :application %>
     <%= yield :custom_js %>
   </body>
 </html>

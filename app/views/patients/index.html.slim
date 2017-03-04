@@ -1,3 +1,4 @@
+hr
 .row
   .medium-8.columns.medium-centered
     = form_tag patients_path, method: :get do
@@ -6,15 +7,21 @@
   .medium-12.columns.medium-text-right
     = link_to "Nuevo paciente", new_patient_path
 .row
-  .medium-4.small-10.columns.medium-centered
+  .medium-10.columns.medium-centered
     - if @patients.any?
       table
         tr
           th Nombre
+          th Teléfono
+          th Especialista
+          th Especialidad
           th
           - @patients.each do |patient|
             tr
               td = patient.name
+              td = patient.phone
+              td = patient.owner
+              td = patient.section
               td = link_to "Ver", patient
     - else
-      h3 = "No se ha encontrado ninguna coincidencia"
+      h3 = "No hay registros"
