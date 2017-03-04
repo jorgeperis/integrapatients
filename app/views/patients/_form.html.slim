@@ -1,0 +1,22 @@
+= form_for @patient do |f|
+  p
+    span = "Nombre: "
+    = f.text_field :name
+  p
+    span = "Teléfono: "
+    = f.text_field :phone
+  p
+    span = "Email: "
+    = f.email_field :email
+  p
+    span = "Area: "
+    = f.select :section, ["Logopedia", "Fisioterapia", "Psicología", "Psicopedagogía"]
+  p
+    span = "Atendido por: "
+    = f.text_field :owner
+  p
+    span = "Historial: "
+    = f.text_area :history
+  = f.hidden_field :updated_by, value: current_user.name
+
+  = f.submit @patient.new_record? ? 'Crear' : 'Actualizar'

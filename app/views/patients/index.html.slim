@@ -1,0 +1,25 @@
+= form_tag patients_path, method: :get do
+  = text_field_tag :search, @placeholder
+
+table
+  tr
+    th Nombre
+    th Email
+    th Teléfono
+    th Area
+    th Paciente de
+    th Historia
+    th Última actualización
+    th
+    th
+  - @patients.each do |patient|
+    tr
+      td = patient.name
+      td = patient.email
+      td = patient.phone
+      td = patient.section
+      td = patient.owner
+      td = patient.history
+      td = patient.updated_info
+      td = link_to "Editar", edit_patient_path(patient)
+      td = link_to "Ver", patient
