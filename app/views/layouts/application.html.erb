@@ -19,16 +19,18 @@
         <% end %>
         <div class="row">
           <div class="medium-2 columns" style="margin-bottom: 1em;">
-            <img src="http://integravalencia.com/wp-content/uploads/2014/02/copy-logo-Integra.jpg" width="auto">
+            <a href=<%= root_path %>><img src="http://integravalencia.com/wp-content/uploads/2014/02/copy-logo-Integra.jpg" width="auto"></a>
           </div>
           <div class="medium-10 columns medium-text-right" style="color: #8a8a8a;">
             <% if current_user %>
-              Usuario conectado: <span style="color: #767676;"><%= current_user.name %></span> | <%= link_to "Desconectar", destroy_user_session_path, style: "color: #cc4b37;", method: :delete %>
+              Usuario conectado: <span class="gris"><%= current_user.name %></span> | <%= link_to "Desconectar", destroy_user_session_path, style: "color: #cc4b37;", method: :delete %>
             <% end %>
           </div>
         </div>
         <%= yield %>
       </div>
     </div>
+    <%= javascript_include_tag :application %>
+    <%= yield :custom_js %>
   </body>
 </html>

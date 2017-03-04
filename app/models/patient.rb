@@ -1,6 +1,6 @@
 class Patient < ApplicationRecord
   scope :search, -> (query) {
-    searchable_fields = %i(name email phone history section)
+    searchable_fields = %i(name email history)
       where(searchable_fields.map { |field| "#{field} LIKE ?" }.join(' OR '),
             *(Array.new(searchable_fields.size, "%#{query}%")))
   }

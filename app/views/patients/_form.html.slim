@@ -1,22 +1,57 @@
-= form_for @patient do |f|
-  p
-    span = "Nombre: "
-    = f.text_field :name
-  p
-    span = "Teléfono: "
-    = f.text_field :phone
-  p
-    span = "Email: "
-    = f.email_field :email
-  p
-    span = "Area: "
-    = f.select :section, ["Logopedia", "Fisioterapia", "Psicología", "Psicopedagogía"]
-  p
-    span = "Atendido por: "
-    = f.text_field :owner
-  p
-    span = "Historial: "
-    = f.text_area :history
-  = f.hidden_field :updated_by, value: current_user.name
+.medium-10.small-12.columns.medium-centered style="margin-bottom: 2em;"
+  = form_for @patient, html: {class: 'js-form'} do |f|
+    h2.field.js-name style="text-align: center;" contenteditable='true' = @patient.name || "Nombre del paciente"
+    table
+      tr
+        th Teléfono
+        th Email
+        th Especilidad
+        th Especialista
+        th Última actualización
+      tr
+        td.field.js-phone contenteditable='true' = @patient.phone
+        td.field.js-email contenteditable='true' = @patient.email
+        td.field.js-section contenteditable='true' = @patient.section
+        td.field.js-owner contenteditable='true' = @patient.owner
+        td = @patient.updated_at ? @patient.updated_info : ''
+    h4 = "Historia"
+    .history.field.js-history style="background-color: #f1f1f1; padding: 1em;" contenteditable='true' = simple_format(@patient.history)
 
-  = f.submit @patient.new_record? ? 'Crear' : 'Actualizar'
+    = f.hidden_field :updated_by, value: current_user.name
+    = f.hidden_field :name, value: @patient.name
+    = f.hidden_field :phone, value: @patient.phone
+    = f.hidden_field :email, value: @patient.email
+    = f.hidden_field :section, value: @patient.section
+    = f.hidden_field :owner, value: @patient.owner
+    = f.hidden_field :history, value: @patient.history
+    br
+    = f.submit @patient.new_record? ? 'Crear' : 'Actualizar', class: 'js-submit hide button small'
+
+- content_for :custom_js do
+  javascript:
+    $('.field').on("change paste keyup", function(e){
+      $('.js-submit').removeClass('hide');
+    });
+    $('.js-name').on('click', function(){
+      if ($('.js-name').html() === "Nombre del paciente") {
+        $('.js-name').empty();
+      }
+    });
+    $('.js-form').submit(function(){
+      $('#patient_name').val($('.js-name').html());
+    });
+    $('.js-form').submit(function(){
+      $('#patient_phone').val($('.js-phone').html());
+    });
+    $('.js-form').submit(function(){
+      $('#patient_email').val($('.js-email').html());
+    });
+    $('.js-form').submit(function(){
+      $('#patient_section').val($('.js-section').html());
+    });
+    $('.js-form').submit(function(){
+      $('#patient_owner').val($('.js-owner').html());
+    });
+    $('.js-form').submit(function(){
+      $('#patient_history').val($('.js-history').html());
+    });
