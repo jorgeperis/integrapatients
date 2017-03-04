@@ -5,7 +5,6 @@ class PatientsController < ApplicationController
     else
       @patients = Patient.all
     end
-    @placeholder = params[:search] || ""
   end
 
   def create

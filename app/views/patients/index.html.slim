@@ -1,5 +1,7 @@
+= link_to "Desconectar '#{current_user.name}'", destroy_user_session_path, method: :delete
+
 = form_tag patients_path, method: :get do
-  = text_field_tag :search, @placeholder
+  = text_field_tag :search, params[:search] || ""
 
 table
   tr
@@ -12,14 +14,17 @@ table
     th Última actualización
     th
     th
-  - @patients.each do |patient|
-    tr
-      td = patient.name
-      td = patient.email
-      td = patient.phone
-      td = patient.section
-      td = patient.owner
-      td = patient.history
-      td = patient.updated_info
-      td = link_to "Editar", edit_patient_path(patient)
-      td = link_to "Ver", patient
+  - if @patients.any?
+    - @patients.each do |patient|
+      tr
+        td = patient.name
+        td = patient.email
+        td = patient.phone
+        td = patient.section
+        td = patient.owner
+        td = patient.history
+        td = patient.updated_info
+        td = link_to "Editar", edit_patient_path(patient)
+        td = link_to "Ver", patient
+  - else
+    p "No se ha encontrado ninguna coincidencia"
